@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModel
 class ProdFeatureEncoder(nn.Module):
     def __init__(self, config):
         '''
-                Model for creating embeddings of attributes
+                Model for creating embeddings
         '''
         super(ProdFeatureEncoder, self).__init__()
         self.config = config
@@ -23,5 +23,4 @@ class ProdFeatureEncoder(nn.Module):
         model_output = self.model(**{k: v.to(self.model.device) for k, v in t.items()})
         embedding = model_output.last_hidden_state[:, 0, :]
         embedding = self.fc(embedding)
-        norm_embedding
         return embedding[0]
