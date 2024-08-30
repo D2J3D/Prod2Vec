@@ -73,6 +73,15 @@ class Prod2VecModel(nn.Module):
         descr_embedding = self.descr_encoder(descr)
 
         product_embedding = torch.cat(
-            (img_embedding, attr_embedding, name_embedding, descr_embedding), axis=1)
+            (img_embedding, attr_embedding, name_embedding, descr_embedding), 1)
         product_embedding = self.bn(product_embedding)
-        return img_embedding, attr_embedding, name_embedding, descr_embedding, product_embedding
+        return {
+            'img': img_embedding,
+            'attr': attr_embedding,
+            'name': name_embedding,
+            'descr': descr_embedding,
+            'product': product_embedding
+        }
+
+    def get_loss(self, model_output, ground_truth):
+        return
